@@ -116,6 +116,7 @@
 			for(var i=outerMin;i<outerMax;i+=outerStep) {
 				//build rate element and append to container
 				var $outer = $('<div class="ratemeup-outer"></div>');
+				var $wrapper = $('<div class="ratemeup-wrapper"></div>');
 				//inner loop
 				for(var j=0;j<innerCount;j++) {
 					//increment current value
@@ -123,10 +124,10 @@
 					//build inner and append to outer
 					$('<div class="ratemeup-inner"></div>')
 						.attr('data-value', currentVal)
-						.appendTo($outer);
+						.appendTo($wrapper);
 				}
 				//append outer to container
-				$container.append($outer);
+				$container.append($outer.append($wrapper));
 			}
 			//insert clear button
 			$container.append($('<div class="ratemeup-clear">&#x2716;</div>'));
