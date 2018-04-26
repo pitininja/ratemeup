@@ -1,0 +1,61 @@
+/* --------------------------- container */
+
+.ratemeup-container {
+	display:inline-block;
+	font-size:0;
+	height:16px;
+}
+
+/* --------------------------- outer */
+
+.ratemeup-outer {
+	border:2px solid #4A86E8;
+	border-radius:50%;
+	display:inline-block;
+	height:12px;
+	margin:0 2px;
+	overflow:hidden;
+	vertical-align:middle;
+	width:12px;
+}
+
+/* --------------------------- inner */
+
+.ratemeup-inner {
+	background:transparent;
+	cursor:pointer;
+	display:inline-block;
+	height:100%;
+	width:100%;
+}
+
+.ratemeup-container[data-step="0.5"] .ratemeup-inner {
+	width:50%;
+}
+
+.ratemeup-container[data-step="0.25"] .ratemeup-inner {
+	width:25%;
+}
+
+.ratemeup-inner.active, 
+.ratemeup-inner.hovered {
+	background:#539CFF;
+}
+
+/* --------------------------- clear */
+
+.ratemeup-clear {
+	color:#999999;
+	cursor:pointer;
+	display:inline-block;
+	font-size:15px;
+	height:12px;
+	line-height:12px;
+	margin:0 6px;
+	vertical-align:middle;
+}
+
+.ratemeup-container:not(.ratemeup-set) .ratemeup-clear, 
+.ratemeup-container:not(:hover) .ratemeup-clear {
+	display:none;
+}
