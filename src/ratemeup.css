@@ -1,5 +1,10 @@
 /* --------------------------- container */
 
+.ratemeup-container, 
+.ratemeup-container * {
+	box-sizing:border-box;
+}
+
 .ratemeup-container {
 	display:inline-block;
 	font-size:0;
@@ -12,12 +17,12 @@
 	background:#4A86E8;
 	border-radius:50%;
 	display:inline-block;
-	height:12px;
+	height:18px;
 	margin:0 2px;
 	overflow:hidden;
 	padding:3px;
 	vertical-align:middle;
-	width:12px;
+	width:18px;
 }
 
 /* --------------------------- wrapper */
@@ -59,8 +64,8 @@
 	cursor:pointer;
 	display:inline-block;
 	font-size:15px;
-	height:12px;
-	line-height:12px;
+	height:18px;
+	line-height:18px;
 	margin:0 6px;
 	vertical-align:middle;
 }
