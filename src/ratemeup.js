@@ -65,11 +65,16 @@
 			//data control
 			if(Data.control(data)) {
 				//build plugin elements
-				var $built = Engine.build($input, data);
+				var $built = Engine.build(data);
 				//attach input element to built element
 				$built.data('ratemeup-input', $input);
 				//attach built element to input element
 				$input.data('ratemeup-element', $built);
+				//set value
+				var inputVal = $input.val();
+				if(inputVal !== '') {
+					Engine.set($built, inputVal);
+				}
 				//hide original element and append built element
 				$input.hide().after($built);
 				//bind controls
@@ -77,7 +82,7 @@
 			}
 		}, 
 
-		//clear
+		//clear rate value
 		clear: function() {
 			Engine.clear($(this).data('ratemeup-element'));
 		}, 
@@ -93,7 +98,7 @@
 	var Engine = {
 
 		//build rating element
-		build: function($input, data) {
+		build: function(data) {
 			//container
 			var $container = $('<div class="ratemeup ratemeup-container"></div>');
 			//set input data
@@ -168,17 +173,31 @@
 				var $input = $container.data('ratemeup-input');
 				//get clicked inner value
 				var innerValue = parseFloat($inner.attr('data-value'));
-				//set input value
-				$input.val(innerValue);
-				//value set class
-				$container.addClass('ratemeup-set');
-				//set target inner and inners before it as hovered
-				Engine.setInnerClass($inner, 'active');
+				//set rate value
+				Engine.set($container, innerValue);
 			});
 			//click on clear icon
 			$el.find('.ratemeup-clear').off('click.ratemeup').on('click.ratemeup', function() {
 				Engine.clear($(this).closest('.ratemeup-container'));
 			});
+		}, 
+
+		//set rate value
+		set: function($container, val) {
+			var $input = $container.data('ratemeup-input');
+			//get inner matching value
+			var $inner = $container.find('.ratemeup-inner[data-value="'+val+'"]');
+			if($inner.length > 0) {
+				//set input value
+				$input.val(val);
+				//value set class
+				$container.addClass('ratemeup-set');
+				//set target inner and inners before it as hovered
+				Engine.setInnerClass($inner, 'active');
+			}
+			else {
+				Tools.error('invalid value', val);
+			}
 		}, 
 
 		//set class to target inner and all inners before it
