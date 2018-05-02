@@ -65,7 +65,7 @@
 			//data control
 			if(Data.control(data)) {
 				//build plugin elements
-				var $built = Engine.build(data);
+				var $built = Engine.build($input, data);
 				//attach input element to built element
 				$built.data('ratemeup-input', $input);
 				//attach built element to input element
@@ -98,7 +98,7 @@
 	var Engine = {
 
 		//build rating element
-		build: function(data) {
+		build: function($input, data) {
 			//container
 			var $container = $('<div class="ratemeup ratemeup-container"></div>');
 			//set input data
@@ -136,6 +136,10 @@
 			}
 			//insert clear button
 			$container.append($('<div class="ratemeup-clear">&#x2716;</div>'));
+			//if readonly set class
+			if($input.prop('readonly')) {
+				$container.addClass('ratemeup-readonly');
+			}
 			//return built element
 			return $container;
 		}, 
@@ -155,31 +159,34 @@
 
 		//bind plugin element controls
 		bind: function($el) {
-			var $inners = $el.find('.ratemeup-inner');
-			//mouseenter for inner hover
-			$inners.off('mouseenter.ratemeup').on('mouseenter.ratemeup', function() {
-				//set target inner and inners before it as hovered
-				Engine.setInnerClass($(this), 'hovered');
-			});
-			//mouseleave for inner hover
-			$el.off('mouseleave.ratemeup').on('mouseleave.ratemeup', function() {
-				//remove hovered class from all inners
-				$(this).find('.ratemeup-inner').removeClass('hovered');
-			});
-			//click on inner to rate
-			$inners.off('click.ratemeup').on('click.ratemeup', function() {
-				var $inner = $(this);
-				var $container = $inner.closest('.ratemeup-container');
-				var $input = $container.data('ratemeup-input');
-				//get clicked inner value
-				var innerValue = parseFloat($inner.attr('data-value'));
-				//set rate value
-				Engine.set($container, innerValue);
-			});
-			//click on clear icon
-			$el.find('.ratemeup-clear').off('click.ratemeup').on('click.ratemeup', function() {
-				Engine.clear($(this).closest('.ratemeup-container'));
-			});
+			//if element is not readonly
+			if(!$el.is('.ratemeup-readonly')) {
+				var $inners = $el.find('.ratemeup-inner');
+				//mouseenter for inner hover
+				$inners.off('mouseenter.ratemeup').on('mouseenter.ratemeup', function() {
+					//set target inner and inners before it as hovered
+					Engine.setInnerClass($(this), 'hovered');
+				});
+				//mouseleave for inner hover
+				$el.off('mouseleave.ratemeup').on('mouseleave.ratemeup', function() {
+					//remove hovered class from all inners
+					$(this).find('.ratemeup-inner').removeClass('hovered');
+				});
+				//click on inner to rate
+				$inners.off('click.ratemeup').on('click.ratemeup', function() {
+					var $inner = $(this);
+					var $container = $inner.closest('.ratemeup-container');
+					var $input = $container.data('ratemeup-input');
+					//get clicked inner value
+					var innerValue = parseFloat($inner.attr('data-value'));
+					//set rate value
+					Engine.set($container, innerValue);
+				});
+				//click on clear icon
+				$el.find('.ratemeup-clear').off('click.ratemeup').on('click.ratemeup', function() {
+					Engine.clear($(this).closest('.ratemeup-container'));
+				});
+			}
 		}, 
 
 		//set rate value

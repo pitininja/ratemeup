@@ -38,10 +38,13 @@
 
 .ratemeup-inner {
 	background:#FFFFFF;
-	cursor:pointer;
 	display:inline-block;
 	height:100%;
 	width:100%;
+}
+
+.ratemeup-container:not(.ratemeup-readonly) .ratemeup-inner {
+	cursor:pointer;
 }
 
 .ratemeup-container[data-step="0.5"] .ratemeup-inner {
@@ -70,6 +73,7 @@
 	vertical-align:middle;
 }
 
+.ratemeup-container.ratemeup-readonly .ratemeup-clear, 
 .ratemeup-container:not(.ratemeup-set) .ratemeup-clear, 
 .ratemeup-container:not(:hover) .ratemeup-clear {
 	display:none;
