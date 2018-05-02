@@ -60,6 +60,11 @@
 				Tools.error('target element must be an input number', this);
 				return;
 			}
+			//already initialized control
+			if($input.is('.ratemeup-initialized')) {
+				Tools.error('already initialized', this);
+				return;
+			}
 			//parse input data
 			var data = Data.parse($input);
 			//data control
@@ -75,8 +80,13 @@
 				if(inputVal !== '') {
 					Engine.set($built, inputVal);
 				}
-				//hide original element and append built element
-				$input.hide().after($built);
+				$input
+					//hide original element
+					.hide()
+					//add initialized class
+					.addClass('ratemeup-initialized')
+					//append built element
+					.after($built);
 				//bind controls
 				Engine.bind($built);
 			}
@@ -89,7 +99,12 @@
 
 		//destroy
 		destroy: function() {
-			//
+			var $input = $(this);
+			var $container = $input.data('ratemeup-element');
+			//remove built element
+			$container.remove();
+			//remove initialized class and show input
+			$input.removeClass('ratemeup-initialized').show();
 		}
 
 	};
