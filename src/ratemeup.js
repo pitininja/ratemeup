@@ -194,19 +194,13 @@
 			var $input = $container.data('ratemeup-input');
 			//inner matching value
 			var $inner = $container.find('.ratemeup-inner[data-value="'+val+'"]');
-			//minimum value
-			var min = $container.attr('data-min');
-			//if legit value
-			if($inner.length > 0 || val === min) {
+			if($inner.length > 0) {
 				//set input value
 				$input.val(val);
 				//value set class
 				$container.addClass('ratemeup-set');
 				//set target inner and inners before it as hovered
 				Engine.setInnerClass($inner, 'active');
-			}
-			else {
-				Tools.error('invalid value', val);
 			}
 		}, 
 
