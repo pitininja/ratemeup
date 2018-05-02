@@ -192,9 +192,12 @@
 		//set rate value
 		set: function($container, val) {
 			var $input = $container.data('ratemeup-input');
-			//get inner matching value
+			//inner matching value
 			var $inner = $container.find('.ratemeup-inner[data-value="'+val+'"]');
-			if($inner.length > 0) {
+			//minimum value
+			var min = $container.attr('data-min');
+			//if legit value
+			if($inner.length > 0 || val === min) {
 				//set input value
 				$input.val(val);
 				//value set class
