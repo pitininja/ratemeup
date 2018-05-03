@@ -52,59 +52,66 @@
 
 		//initialization
 		init: function(opts) {
-			var $input = $(this);
 			//settings provided by user
 			var settings = $.extend(true, {}, Data.defaults, opts);
-			//element type control
-			if(!$input.is('input[type="number"]')) {
-				Tools.error('target element must be an input number', this);
-				return;
-			}
-			//already initialized control
-			if($input.is('.ratemeup-initialized')) {
-				Tools.error('already initialized', this);
-				return;
-			}
-			//parse input data
-			var data = Data.parse($input);
-			//data control
-			if(Data.control(data)) {
-				//build plugin elements
-				var $built = Engine.build($input, data);
-				//attach input element to built element
-				$built.data('ratemeup-input', $input);
-				//attach built element to input element
-				$input.data('ratemeup-element', $built);
-				//set value
-				var inputVal = $input.val();
-				if(inputVal !== '') {
-					Engine.set($built, inputVal);
+			//loop through targeted elements
+			return $(this).each(function() {
+				var $input = $(this);
+				//element type control
+				if(!$input.is('input[type="number"]')) {
+					Tools.error('target element must be an input number', this);
+					return;
 				}
-				$input
-					//hide original element
-					.hide()
-					//add initialized class
-					.addClass('ratemeup-initialized')
-					//append built element
-					.after($built);
-				//bind controls
-				Engine.bind($built);
-			}
+				//already initialized control
+				if($input.is('.ratemeup-initialized')) {
+					Tools.error('already initialized', this);
+					return;
+				}
+				//parse input data
+				var data = Data.parse($input);
+				//data control
+				if(Data.control(data)) {
+					//build plugin elements
+					var $built = Engine.build($input, data);
+					//attach input element to built element
+					$built.data('ratemeup-input', $input);
+					//attach built element to input element
+					$input.data('ratemeup-element', $built);
+					//set value
+					var inputVal = $input.val();
+					if(inputVal !== '') {
+						Engine.set($built, inputVal);
+					}
+					$input
+						//hide original element
+						.hide()
+						//add initialized class
+						.addClass('ratemeup-initialized')
+						//append built element
+						.after($built);
+					//bind controls
+					Engine.bind($built);
+				}
+			});
 		}, 
 
 		//clear rate value
 		clear: function() {
-			Engine.clear($(this).data('ratemeup-element'));
+			return $(this).each(function() {
+				Engine.clear($(this).data('ratemeup-element'));
+			});
 		}, 
 
 		//destroy
 		destroy: function() {
-			var $input = $(this);
-			var $container = $input.data('ratemeup-element');
-			//remove built element
-			$container.remove();
-			//remove initialized class and show input
-			$input.removeClass('ratemeup-initialized').show();
+			return $(this).each(function() {
+				var $input = $(this);
+				var $container = $input.data('ratemeup-element');
+				//remove built element
+				$container.remove();
+				//remove initialized class and show input
+				$input.removeClass('ratemeup-initialized').show();
+			});
 		}
 
 	};
