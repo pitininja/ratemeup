@@ -217,12 +217,12 @@
 			//inner matching value
 			var $inner = $container.find('.ratemeup-inner[data-value="'+val+'"]');
 			if($inner.length > 0) {
-				//set input value
-				$input.val(val);
 				//value set class
 				$container.addClass('ratemeup-set');
 				//set target inner and inners before it as hovered
 				Engine.setInnerClass($inner, 'active');
+				//set input value and trigger change event
+				$input.val(val).trigger('change');
 			}
 		}, 
 
